@@ -8,7 +8,7 @@ module.exports = {
   rules: {
     'object-curly-spacing': ['error', 'always'],
     'key-spacing': ['error', { 'afterColon': true }],
-    'semi': 'error',
+    'semi': ['error', 'never'],
     'quotes': ['error', 'single', { 'allowTemplateLiterals': true }],
     'max-len': ['error', 80, {
       "ignoreComments": true,
@@ -19,4 +19,4 @@ module.exports = {
       "ignores": ["modules"]
     }]
   }
-};
+}
