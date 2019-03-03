@@ -11,6 +11,9 @@
     "GraphQL",
     "node"
   ],
+  "engines": {
+    "node": ">=10.12"
+  },
   "author": "Shannon Johnstone",
   "license": "ISC",
   "devDependencies": {
@@ -22,5 +25,8 @@
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-prettier": "^3.0.1",
     "prettier": "^1.16.4"
+  },
+  "dependencies": {
+    "graphql-yoga": "^1.17.4"
   }
 }

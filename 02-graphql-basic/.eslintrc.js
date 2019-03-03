@@ -14,5 +14,9 @@ module.exports = {
       "ignoreComments": true,
       "ignoreStrings": true
     }],
+    "node/no-unsupported-features/es-syntax": ["error", {
+      "version": ">=6.0.0",
+      "ignores": ["modules"]
+    }]
   }
 };
