@@ -1,5 +1,5 @@
 // Demo user data
-const users = [
+const usersMock = [
   {
     id: 1,
     name: 'Dustin',
@@ -15,7 +15,7 @@ const users = [
   },
 ]
 
-const comments = [
+const commentsMock = [
   {
     id: 1,
     text: 'First comment',
@@ -42,7 +42,7 @@ const comments = [
   },
 ]
 
-const posts = [
+const postsMock = [
   {
     id: 1,
     title: 'A dogs life',
@@ -69,4 +69,4 @@ const posts = [
   },
 ]
 
-export { users, posts, comments }
+export { usersMock, postsMock, commentsMock }

@@ -1,4 +1,9 @@
-import { users, comments, posts } from '../mock-data'
+import uuid from 'uuid/v4'
+import { usersMock, commentsMock, postsMock } from '../mock-data'
+
+let users = [...usersMock]
+let comments = [...commentsMock]
+let posts = [...postsMock]
 
 // resolvers
 export default {
@@ -38,6 +43,25 @@ export default {
         body: 'This is the body example',
         published: true,
       }
+    },
+  },
+  Mutation: {
+    createUser(parent, args, ctx, info) {
+      console.log({ users })
+      const userExists = users.some(user => user.email === args.email)
+
+      if (userExists) throw new Error('User with this email already exists')
+
+      const user = {
+        id: uuid(),
+        name: args.name,
+        email: args.email,
+        age: args.age,
+      }
+
+      users = users.concat(user)
+
+      return user
     },
   },
   // resolve relational data

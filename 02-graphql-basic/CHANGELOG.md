@@ -1,5 +1,10 @@
 # Changelog
 
+# Setup mutation
+
+- setup initial mutation
+- setup createUser mutation with user check
+
 # Setup more relational data
 
 - setup comments data
