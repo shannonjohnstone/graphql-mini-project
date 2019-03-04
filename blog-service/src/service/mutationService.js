@@ -70,5 +70,17 @@ export default repository => {
       const deletedPost = repository.deletePostAndRelatedContent(post, args)
       return deletedPost
     },
+    deleteComment(args) {
+      const comment = repository.getComment(args.id)
+
+      if (!comment) error('Comment does not exist')
+
+      const deletedComment = repository.deleteCommentAndRelatedContent(
+        comment,
+        args,
+      )
+
+      return deletedComment
+    },
   }
 }

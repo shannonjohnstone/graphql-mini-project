@@ -21,6 +21,9 @@ export default function(database) {
     getComments() {
       return database.comments
     },
+    getComment(id) {
+      return database.comments.find(comment => comment.id === id)
+    },
     getPosts() {
       return database.posts
     },
@@ -79,6 +82,12 @@ export default function(database) {
       updateUsers(updatedUsers)
 
       return user
+    },
+    deleteCommentAndRelatedContent(comment, args) {
+      updateComments(
+        this.getComments().filter(comment => comment.id !== args.id),
+      )
+      return comment
     },
   }
 }

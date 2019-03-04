@@ -22,5 +22,9 @@ export default (repository, makeService) => {
       const post = mutationService.deletePost(args)
       return post
     },
+    deleteComment(parent, args, ctx, info) {
+      const post = mutationService.deleteComment(args)
+      return post
+    },
   }
 }
