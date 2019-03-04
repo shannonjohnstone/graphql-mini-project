@@ -1,12 +1,11 @@
 import { GraphQLServer } from 'graphql-yoga'
-import typeDefs from './types'
 import resolvers from './resolvers'
 import databaseMock from './database-mock'
 import repository from './repository'
 import * as makeServices from './service'
 
 const server = new GraphQLServer({
-  typeDefs,
+  typeDefs: './src/schema/schema.graphql',
   resolvers: resolvers(repository(databaseMock()), makeServices),
 })
 
