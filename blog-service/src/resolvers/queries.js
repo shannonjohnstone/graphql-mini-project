@@ -1,28 +1,15 @@
-export default repository => {
+export default (repository, makeService) => {
+  const queryService = makeService(repository)
+
   return {
     users(parent, args, ctx, info) {
-      const userQuery = args.query ? args.query.toLowerCase() : null
-      return !userQuery
-        ? repository.users
-        : repository.users.filter(user =>
-            user.name.toLowerCase().includes(userQuery),
-          )
+      return queryService.resolveUsers(args)
     },
     comments(parent, args, ctx, info) {
-      const commentsQuery = args.query ? args.query.toLowerCase() : null
-      return !commentsQuery
-        ? repository.comments
-        : repository.comments.filter(comment =>
-            comment.text.toLowerCase().includes(commentsQuery),
-          )
+      return queryService.resolveComments(args)
     },
     posts(parent, args, ctx, info) {
-      const postsQuery = args.query ? args.query.toLowerCase() : null
-      return !postsQuery
-        ? repository.posts
-        : repository.posts.filter(post =>
-            post.title.toLowerCase().includes(postsQuery),
-          )
+      return queryService.resolvePosts(args)
     },
     me() {
       return {

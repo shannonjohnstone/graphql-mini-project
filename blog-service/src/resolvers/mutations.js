@@ -1,62 +1,21 @@
-import uuid from 'uuid/v4'
-import {
-  emailAlreadyExists,
-  authorExists,
-  findUser,
-  deleteUser,
-  postExistsAndPublished,
-  error,
-} from './resolver-utils'
+export default (repository, makeService) => {
+  const mutationService = makeService(repository)
 
-export default repository => {
   return {
-    createUser(parent, args, ctx, info) {
-      const { data } = args
-      if (emailAlreadyExists(repository.users, data))
-        error('User with this email already exists')
-
-      const user = {
-        id: uuid(),
-        ...data,
-      }
-
-      users = users.concat(user)
-
+    createUser(parent, args) {
+      const user = mutationService.createUser(args.data)
       return user
     },
-    createPost(parent, args, ctx, info) {
-      const { data } = args
-      if (!authorExists(repository.users, data)) error('User does not exists')
-
-      const post = {
-        id: uuid(),
-        ...data,
-      }
-
-      repository.posts = repository.posts.concat(post)
+    createPost(parent, args) {
+      const post = mutationService.createPost(args.data)
       return post
     },
-    createComment(parent, args, ctx, info) {
-      const { data } = args
-      if (!authorExists(repository.users, data)) error('User does not exists')
-      if (!postExistsAndPublished(repository.posts, data))
-        error('Post does not exists or has not been published yet.')
-
-      const comment = {
-        id: uuid(),
-        ...data,
-      }
-
-      repository.comments = repository.comments.concat(comment)
+    createComment(parent, args) {
+      const comment = mutationService.createComment(args.data)
       return comment
     },
     deleteUser(parent, args, ctx, info) {
-      const user = findUser(repository.users, args)
-      if (!user) error('User not found')
-
-      const updatedUsers = deleteUser(repository.users, user)
-      repository.users = updatedUsers
-
+      const user = mutationService.deleteUser(args)
       return user
     },
   }
