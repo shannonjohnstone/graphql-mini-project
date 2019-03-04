@@ -1,13 +1,13 @@
 // Demo user data
 const usersMock = [
   {
-    id: 1,
+    id: '1',
     name: 'Dustin',
     email: 'dustin@example.com',
     comments: [1, 4],
   },
   {
-    id: 2,
+    id: '2',
     name: 'Zag',
     email: 'dustin@example.com',
     age: 1,
@@ -17,25 +17,25 @@ const usersMock = [
 
 const commentsMock = [
   {
-    id: 1,
+    id: '1',
     text: 'First comment',
     author: 1,
     post: 3,
   },
   {
-    id: 2,
+    id: '2',
     text: 'Second comment',
     author: 2,
     post: 3,
   },
   {
-    id: 3,
+    id: '3',
     text: 'Third comment',
     author: 2,
     post: 2,
   },
   {
-    id: 4,
+    id: '4',
     text: 'Forth comment',
     author: 1,
     post: 1,
@@ -44,7 +44,7 @@ const commentsMock = [
 
 const postsMock = [
   {
-    id: 1,
+    id: '1',
     title: 'A dogs life',
     body: 'this is the dummy body text',
     published: true,
@@ -52,7 +52,7 @@ const postsMock = [
     comments: [4],
   },
   {
-    id: 2,
+    id: '2',
     title: 'The sun',
     body: 'this is the dummy body text',
     published: true,
@@ -60,12 +60,19 @@ const postsMock = [
     comments: [3],
   },
   {
-    id: 3,
+    id: '3',
     title: 'Why we dislike cats',
     body: 'this is the dummy body text',
     published: true,
     author: 2,
     comments: [1, 2],
+  },
+  {
+    id: '4',
+    title: 'Not Completed!',
+    body: 'blah blah blah',
+    published: false,
+    author: 2,
   },
 ]
 
