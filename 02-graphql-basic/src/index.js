@@ -11,10 +11,46 @@ import { GraphQLServer } from 'graphql-yoga'
  * User, a type that will return a collection of data
  */
 
+// Demo user data
+const users = [
+  {
+    id: 1,
+    name: 'Dustin',
+    email: 'dustin@example.com',
+  },
+  {
+    id: 2,
+    name: 'Zag',
+    email: 'dustin@example.com',
+    age: 1,
+  },
+]
+
+const posts = [
+  {
+    id: 1,
+    title: 'A dogs life',
+    body: 'this is the dummy body text',
+    published: true,
+  },
+  {
+    id: 2,
+    title: 'The sun',
+    body: 'this is the dummy body text',
+    published: true,
+  },
+  {
+    id: 3,
+    title: 'Why we dislike cats',
+    body: 'this is the dummy body text',
+    published: true,
+  },
+]
+
 const typeDefs = `
   type Query {
-    greeting(name: String): String!
-    add(a: Float!, b: Float!): Float!
+    users(query: String): [User!]!
+    posts(query: String): [Post!]!
     me: User!
     post: Post!
   }
@@ -38,11 +74,17 @@ const typeDefs = `
 // resolvers
 const resolvers = {
   Query: {
-    add(parent, args, ctx, info) {
-      return args.a + args.b
+    users(parent, args, ctx, info) {
+      const userQuery = args.query ? args.query.toLowerCase() : null
+      return !userQuery
+        ? users
+        : users.filter(user => user.name.toLowerCase().includes(userQuery))
     },
-    greeting(parent, args, ctx, info) {
-      return args.name ? `Hello ${args.name}` : 'Hello'
+    posts(parent, args, ctx, info) {
+      const postsQuery = args.query ? args.query.toLowerCase() : null
+      return !postsQuery
+        ? posts
+        : posts.filter(post => post.title.toLowerCase().includes(postsQuery))
     },
     me() {
       return {
