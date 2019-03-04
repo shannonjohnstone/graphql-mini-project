@@ -1,5 +1,5 @@
 {
-  "name": "02-graphql-basic",
+  "name": "blog-service",
   "version": "1.0.0",
   "description": "GraphQL basic",
   "main": "index.js",
@@ -28,6 +28,7 @@
     "prettier": "^1.16.4"
   },
   "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "graphql-yoga": "^1.17.4",
     "uuid": "^3.3.2"
   }

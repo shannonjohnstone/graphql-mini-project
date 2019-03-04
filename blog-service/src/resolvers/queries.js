@@ -1,5 +1,5 @@
 export default repository => {
-  const { users, comments, posts } = repository
+  let { users, comments, posts } = repository
 
   return {
     users(parent, args, ctx, info) {
