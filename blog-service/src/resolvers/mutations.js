@@ -2,17 +2,17 @@ import uuid from 'uuid/v4'
 import {
   emailAlreadyExists,
   authorExists,
+  findUser,
+  deleteUser,
   postExistsAndPublished,
   error,
 } from './resolver-utils'
 
 export default repository => {
-  let { users, comments, posts } = repository
-
   return {
     createUser(parent, args, ctx, info) {
       const { data } = args
-      if (emailAlreadyExists(users, data))
+      if (emailAlreadyExists(repository.users, data))
         error('User with this email already exists')
 
       const user = {
@@ -26,20 +26,20 @@ export default repository => {
     },
     createPost(parent, args, ctx, info) {
       const { data } = args
-      if (!authorExists(users, data)) error('User does not exists')
+      if (!authorExists(repository.users, data)) error('User does not exists')
 
       const post = {
         id: uuid(),
         ...data,
       }
 
-      posts = posts.concat(post)
+      repository.posts = repository.posts.concat(post)
       return post
     },
     createComment(parent, args, ctx, info) {
       const { data } = args
-      if (!authorExists(users, data)) error('User does not exists')
-      if (!postExistsAndPublished(posts, data))
+      if (!authorExists(repository.users, data)) error('User does not exists')
+      if (!postExistsAndPublished(repository.posts, data))
         error('Post does not exists or has not been published yet.')
 
       const comment = {
@@ -47,8 +47,17 @@ export default repository => {
         ...data,
       }
 
-      comments = comments.concat(comment)
+      repository.comments = repository.comments.concat(comment)
       return comment
+    },
+    deleteUser(parent, args, ctx, info) {
+      const user = findUser(repository.users, args)
+      if (!user) error('User not found')
+
+      const updatedUsers = deleteUser(repository.users, user)
+      repository.users = updatedUsers
+
+      return user
     },
   }
 }

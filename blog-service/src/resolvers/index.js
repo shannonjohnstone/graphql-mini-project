@@ -3,10 +3,6 @@ import { usersMock, commentsMock, postsMock } from '../mock-data'
 import mutation from './mutations'
 import query from './queries'
 
-let users = [...usersMock]
-let comments = [...commentsMock]
-let posts = [...postsMock]
-
 const repository = {
   users: [...usersMock],
   comments: [...commentsMock],

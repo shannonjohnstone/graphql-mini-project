@@ -1,26 +1,28 @@
 export default repository => {
-  let { users, comments, posts } = repository
-
   return {
     users(parent, args, ctx, info) {
       const userQuery = args.query ? args.query.toLowerCase() : null
       return !userQuery
-        ? users
-        : users.filter(user => user.name.toLowerCase().includes(userQuery))
+        ? repository.users
+        : repository.users.filter(user =>
+            user.name.toLowerCase().includes(userQuery),
+          )
     },
     comments(parent, args, ctx, info) {
       const commentsQuery = args.query ? args.query.toLowerCase() : null
       return !commentsQuery
-        ? comments
-        : comments.filter(comment =>
+        ? repository.comments
+        : repository.comments.filter(comment =>
             comment.text.toLowerCase().includes(commentsQuery),
           )
     },
     posts(parent, args, ctx, info) {
       const postsQuery = args.query ? args.query.toLowerCase() : null
       return !postsQuery
-        ? posts
-        : posts.filter(post => post.title.toLowerCase().includes(postsQuery))
+        ? repository.posts
+        : repository.posts.filter(post =>
+            post.title.toLowerCase().includes(postsQuery),
+          )
     },
     me() {
       return {
