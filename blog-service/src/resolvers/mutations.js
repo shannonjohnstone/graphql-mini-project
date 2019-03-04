@@ -11,6 +11,10 @@ export default {
     const post = mutationService.updatePost(args.id, args.data)
     return post
   },
+  updateComment(parent, args, { mutationService }) {
+    const comment = mutationService.updateComment(args.id, args.data)
+    return comment
+  },
   createPost(parent, args, { mutationService }) {
     const post = mutationService.createPost(args.data)
     return post

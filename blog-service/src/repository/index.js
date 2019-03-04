@@ -48,6 +48,20 @@ export default function(database) {
 
       return _post
     },
+    updateComment(_comment) {
+      const comments = this.getComments()
+      const commentIndex = comments.findIndex(
+        comment => comment.id === _comment.id,
+      )
+
+      updateComments([
+        ...comments.splice(0, commentIndex),
+        _comment,
+        ...comments.slice(commentIndex + 1),
+      ])
+
+      return _comment
+    },
     updateUser(_user) {
       const users = this.getUsers()
       const userIndex = users.findIndex(user => user.id === _user.id)

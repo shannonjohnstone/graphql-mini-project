@@ -48,6 +48,15 @@ export default repository => {
 
       return updatedPost
     },
+    updateComment(id, data) {
+      const comment = repository.getComment(id)
+
+      if (!comment) error('Comment does not exist')
+
+      const updatedComment = repository.updateComment({ ...comment, ...data })
+
+      return updatedComment
+    },
     createComment(data) {
       const users = repository.getUsers()
       const posts = repository.getPosts()
