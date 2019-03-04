@@ -3,6 +3,14 @@ export default {
     const user = mutationService.createUser(args.data)
     return user
   },
+  updateUser(parent, args, { mutationService }) {
+    const user = mutationService.updateUser(args.id, args.data)
+    return user
+  },
+  updatePost(parent, args, { mutationService }) {
+    const post = mutationService.updatePost(args.id, args.data)
+    return post
+  },
   createPost(parent, args, { mutationService }) {
     const post = mutationService.createPost(args.data)
     return post

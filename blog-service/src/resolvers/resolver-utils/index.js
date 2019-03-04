@@ -1,5 +1,5 @@
 export const emailAlreadyExists = (users, args) =>
-  users.some(user => user.email === args.email)
+  users.some(user => user.email.toLowerCase() === args.email.toLowerCase())
 
 export const authorExists = (users, args) =>
   users.some(user => user.id === args.author)

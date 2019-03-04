@@ -10,7 +10,7 @@ const db = {
     {
       id: '2',
       name: 'Zag',
-      email: 'dustin@example.com',
+      email: 'zag@example.com',
       age: 1,
       comments: ['2', '3'],
     },

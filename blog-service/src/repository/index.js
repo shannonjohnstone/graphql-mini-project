@@ -16,7 +16,7 @@ export default function(database) {
       return database.users
     },
     getUser(id) {
-      return this.getUser().find(user => user.id === id)
+      return this.getUsers().find(user => user.id === id)
     },
     getComments() {
       return database.comments
@@ -35,6 +35,30 @@ export default function(database) {
     },
     addUser(user) {
       return database.users.concat(user)
+    },
+    updatePost(_post) {
+      const posts = this.getPosts()
+      const postIndex = posts.findIndex(post => post.id === _post.id)
+
+      updatePosts([
+        ...posts.splice(0, postIndex),
+        _post,
+        ...posts.slice(postIndex + 1),
+      ])
+
+      return _post
+    },
+    updateUser(_user) {
+      const users = this.getUsers()
+      const userIndex = users.findIndex(user => user.id === _user.id)
+
+      updateUsers([
+        ...users.splice(0, userIndex),
+        _user,
+        ...users.slice(userIndex + 1),
+      ])
+
+      return _user
     },
     addComment(comment) {
       return database.comments.concat(comment)

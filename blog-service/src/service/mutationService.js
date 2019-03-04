@@ -23,6 +23,31 @@ export default repository => {
 
       return user
     },
+    updateUser(id, data) {
+      const user = repository.getUser(id)
+      const users = repository.getUsers()
+
+      if (!user) error('User does not exist')
+
+      if (user.email.toLowerCase() === data.email.toLowerCase())
+        error('This is your current email.')
+
+      if (emailAlreadyExists(users, data))
+        error('User with this email already exists')
+
+      const updatedUser = repository.updateUser({ ...user, ...data })
+
+      return updatedUser
+    },
+    updatePost(id, data) {
+      const post = repository.getPost(id)
+
+      if (!post) error('Post does not exist')
+
+      const updatedPost = repository.updatePost({ ...post, ...data })
+
+      return updatedPost
+    },
     createComment(data) {
       const users = repository.getUsers()
       const posts = repository.getPosts()
