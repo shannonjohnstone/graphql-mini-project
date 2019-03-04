@@ -1,5 +1,10 @@
 # Changelog
 
+# add more mutation, add and delete for users, post and comments
+
+- setup mutation for add and delete for users, post and comments
+- setup service and repository pattern and dependency injection
+
 # Setup mutation
 
 - setup initial mutation

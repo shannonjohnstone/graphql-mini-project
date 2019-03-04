@@ -13,7 +13,6 @@ export default function(database) {
 
   return {
     getUsers() {
-      console.log('getUsers', database)
       return database.users
     },
     getUser(id) {
@@ -24,6 +23,9 @@ export default function(database) {
     },
     getPosts() {
       return database.posts
+    },
+    getPost(id) {
+      return this.getPosts().find(post => post.id === id)
     },
     addPost(post) {
       return database.posts.concat(post)
@@ -38,12 +40,24 @@ export default function(database) {
       const updatedUsers = this.getUsers().filter(user => user.id !== userId)
       return updatedUsers
     },
+    deletePostAndRelatedContent(post, args) {
+      // delete post from given post id
+      updatePosts(this.getPosts().filter(post => post.id !== args.id))
+
+      // delete comments that relate to the post id
+      updateComments(
+        this.getComments().filter(comment => comment.post !== args.id),
+      )
+
+      // return deleted post
+      return post
+    },
     deleteUserAndRelatedContent(user, args) {
       const updatedUsers = this.deleteUser(user.id)
 
       // delete data related to user NOTE: this is temp solution
-      // posts
 
+      // delete comments from posts that match the deleted users id
       updatePosts(
         this.getPosts().filter(post => {
           const match = post.author === args.id
@@ -57,7 +71,7 @@ export default function(database) {
         }),
       )
 
-      // comments
+      // delete comments that related to user
       updateComments(
         this.getComments().filter(comment => comment.author !== args.id),
       )

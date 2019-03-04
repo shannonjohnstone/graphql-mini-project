@@ -62,5 +62,13 @@ export default repository => {
 
       return deletedUser
     },
+    deletePost(args) {
+      const post = repository.getPost(args.id)
+
+      if (!post) error('Post does not exist')
+
+      const deletedPost = repository.deletePostAndRelatedContent(post, args)
+      return deletedPost
+    },
   }
 }
