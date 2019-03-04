@@ -1,5 +1,10 @@
 # Changelog
 
+# Setup more relational data
+
+- setup comments data
+- setup relational data between comments, posts and users
+
 # Dummy data nd queries
 
 - setup dummy data for users and posts

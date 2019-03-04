@@ -17,12 +17,37 @@ const users = [
     id: 1,
     name: 'Dustin',
     email: 'dustin@example.com',
+    comments: [1, 4],
   },
   {
     id: 2,
     name: 'Zag',
     email: 'dustin@example.com',
     age: 1,
+    comments: [2, 3],
+  },
+]
+
+const comments = [
+  {
+    id: 1,
+    text: 'First comment',
+    author: 1,
+  },
+  {
+    id: 2,
+    text: 'Second comment',
+    author: 2,
+  },
+  {
+    id: 3,
+    text: 'Third comment',
+    author: 2,
+  },
+  {
+    id: 4,
+    text: 'Forth comment',
+    author: 1,
   },
 ]
 
@@ -32,18 +57,24 @@ const posts = [
     title: 'A dogs life',
     body: 'this is the dummy body text',
     published: true,
+    author: 1,
+    comments: [4],
   },
   {
     id: 2,
     title: 'The sun',
     body: 'this is the dummy body text',
     published: true,
+    author: 1,
+    comments: [3],
   },
   {
     id: 3,
     title: 'Why we dislike cats',
     body: 'this is the dummy body text',
     published: true,
+    author: 2,
+    comments: [1, 2],
   },
 ]
 
@@ -51,6 +82,7 @@ const typeDefs = `
   type Query {
     users(query: String): [User!]!
     posts(query: String): [Post!]!
+    comments(query: String): [Comment!]!
     me: User!
     post: Post!
   }
@@ -61,6 +93,8 @@ const typeDefs = `
     email: String!
     kids: [String!]
     age: Int
+    posts: [Post!]!
+    comments: [Comment!]
   }
 
   type Post {
@@ -68,6 +102,14 @@ const typeDefs = `
     title: String!
     body: String!
     published: Boolean!
+    author: User!
+    comments: [Comment!]
+  }
+
+  type Comment {
+    id: ID!
+    text: String!
+    author: User!
   }
 `
 
@@ -79,6 +121,14 @@ const resolvers = {
       return !userQuery
         ? users
         : users.filter(user => user.name.toLowerCase().includes(userQuery))
+    },
+    comments(parent, args, ctx, info) {
+      const commentsQuery = args.query ? args.query.toLowerCase() : null
+      return !commentsQuery
+        ? comments
+        : comments.filter(comment =>
+            comment.text.toLowerCase().includes(commentsQuery),
+          )
     },
     posts(parent, args, ctx, info) {
       const postsQuery = args.query ? args.query.toLowerCase() : null
@@ -101,6 +151,29 @@ const resolvers = {
         body: 'This is the body example',
         published: true,
       }
+    },
+  },
+
+  // resolve relational data
+  User: {
+    comments(parent, args, ctx, info) {
+      return comments.filter(comment => comment.author === parent.id)
+    },
+    posts(parent, args, ctx, info) {
+      return posts.filter(post => post.id === parent.id)
+    },
+  },
+  Comment: {
+    author(parent, args, ctx, info) {
+      return users.find(user => user.id === parent.author)
+    },
+  },
+  Post: {
+    comments(parent, args, ctx, info) {
+      return comments.filter(comment => comment.author === parent.id)
+    },
+    author(parent, args, ctx, info) {
+      return users.find(user => user.id === parent.author)
     },
   },
 }
