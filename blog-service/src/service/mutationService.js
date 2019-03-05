@@ -70,7 +70,7 @@ export default repository => {
         ...data,
       }
 
-      repository.addComments(comment)
+      repository.addComment(comment)
       return comment
     },
     createPost(data) {
