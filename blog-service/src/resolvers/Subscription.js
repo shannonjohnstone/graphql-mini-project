@@ -1,5 +1,5 @@
 import { error } from '../resolvers/resolver-utils'
-import { resolveSubscriptionKey, types } from '../service/subscriptionService'
+import { resolveSubscriptionKey, types } from '../lib/subscription-utils'
 
 // Subscriptions
 export default {
